@@ -27,11 +27,11 @@
 		<cfset var TextNodeComparator = 		loader.create("org.outerj.daisy.diff.html.TextNodeComparator")>
 		<cfset var InputSource = 				loader.create("org.xml.sax.InputSource")>
 				
-        <cfset var finalResult = StringWriter.Init()>
+		<cfset var finalResult = StringWriter.Init()>
 		<cfset var result = TransformerFactoryImpl.Init().newTransformerHandler()>
 		<cfset var sr = StreamResult.Init(finalResult)>
-        <cfset var prefix = "diff">
-        <cfset var cleaner = NekoHtmlParser.Init()>
+		<cfset var prefix = "diff">
+		<cfset var cleaner = NekoHtmlParser.Init()>
 		<cfset var oldSource = InputSource.Init(StringReader.Init(olderHtml))>
 		<cfset var newSource = InputSource.Init(StringReader.Init(newerHtml))>
 		<cfset var oldHandler = DomTreeBuilder.Init()>
@@ -42,19 +42,19 @@
 		<cfset var differ = "">
 		<cfset var diff = "">
 
-        <cfset result.setResult(sr)>
-        <cfset result.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes")>
+		<cfset result.setResult(sr)>
+		<cfset result.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes")>
 
-        <cfset cleaner.parse(oldSource, oldHandler)>
-        <cfset leftComparator = TextNodeComparator.Init(oldHandler, Locale.getDefault())>
+		<cfset cleaner.parse(oldSource, oldHandler)>
+		<cfset leftComparator = TextNodeComparator.Init(oldHandler, Locale.getDefault())>
 
-        <cfset cleaner.parse(newSource, newHandler)>
-        <cfset rightComparator = TextNodeComparator.Init(newHandler, Locale.getDefault())>
+		<cfset cleaner.parse(newSource, newHandler)>
+		<cfset rightComparator = TextNodeComparator.Init(newHandler, Locale.getDefault())>
 
-        <cfset output = HtmlSaxDiffOutput.Init(result,prefix)>
-        <cfset differ = HTMLDiffer.Init(output)>
-        <cfset differ.diff(leftComparator, rightComparator)>
-        <cfset diff = finalResult.toString()>
+		<cfset output = HtmlSaxDiffOutput.Init(result,prefix)>
+		<cfset differ = HTMLDiffer.Init(output)>
+		<cfset differ.diff(leftComparator, rightComparator)>
+		<cfset diff = finalResult.toString()>
 
 		<cfreturn diff>
 	</cffunction>
